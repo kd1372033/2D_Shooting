@@ -4,7 +4,7 @@ class Scene
 {
 private:
 
-
+	int test;
 public:
 
 	// ‰Šúİ’è
