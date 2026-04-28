@@ -1,9 +1,12 @@
 #pragma once
 
+class BaseScene;
+
 class Scene
 {
 private:
 
+	std::shared_ptr<BaseScene> m_nowscene;	// 現在のシーン
 public:
 
 	// 初期設定
@@ -11,6 +14,8 @@ public:
 
 	// 解放
 	void Release();
+
+	void PreUpdate();
 
 	// 更新処理
 	void Update();
