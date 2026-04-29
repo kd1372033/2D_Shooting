@@ -10,6 +10,8 @@ void GameScene::Init()
 
 	m_player->Init();
 	m_enemy->Init();
+
+	m_enemy->SetTarget(m_player);
 }
 
 void GameScene::Update()

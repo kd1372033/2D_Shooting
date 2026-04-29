@@ -10,6 +10,9 @@ public:
 	void Update()override;
 	void Draw()override;
 	void Init()override;
+
+	Math::Vector2 GetPos() { return m_pos; }
+
 private:
 
 	void Release()override;
@@ -18,6 +21,6 @@ private:
 	Math::Matrix mat;
 
 	int m_animCnt;	//アニメーションカウンタ
-	
+
 
 };
