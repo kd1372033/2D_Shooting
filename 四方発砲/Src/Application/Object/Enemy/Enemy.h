@@ -10,7 +10,10 @@ public:
 	void Update();
 	void Draw();
 	void Init();
-
+	void GetPlayerPos(Math::Vector2 _pos)
+	{
+		
+	}
 
 private:
 	void Release();
@@ -23,6 +26,7 @@ private:
 	Math::Vector2 m_pos[enemyNum];
 	Math::Vector2 scale[enemyNum];
 	KdTexture m_tex[enemyNum];
+	bool aliveFlg[enemyNum];
 
 
 };

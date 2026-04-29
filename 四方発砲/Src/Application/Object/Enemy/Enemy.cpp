@@ -2,34 +2,11 @@
 
 void Enemy::Update()
 {
+	if (!m_aliveFlg) return;
+
 	for (int i = 0; i < enemyNum; i++)
 	{
-		if (!aliveFlg[i])
-		{
-			m_pos[i].x = player.m_posX;
-			m_pos[i].y = player.m_posY;
-			//enemy[i].m_moveX = 4;
-			//enemy[i].m_moveY = 4;
-			//enemy[i].m_moveX = rand() % 11-5;
-			//enemy[i].m_moveY = rand() % 11-5;
-
-			//自機から見た敵の角度を求める
-			deg = GetAngleDeg(player.m_posX, player.m_posY, enemy.m_posX, enemy.m_posY);
-
-			//指定した角度とスピードで弾を飛ばす
-			enemy[i].m_speed = 5;
-			enemy[i].m_moveX = cos(DirectX::XMConvertToRadians(deg)) * enemy[i].m_speed;
-			enemy[i].m_moveY = sin(DirectX::XMConvertToRadians(deg)) * enemy[i].m_speed;
-
-			enemy[i].m_srcRect = { 0,0,32,32 };
-			enemy[i].m_color = { rand() / (float)RAND_MAX,rand() / (float)RAND_MAX,
-								rand() / (float)RAND_MAX,1.0f };
-
-			enemy[i].m_count = 0;
-			enemy[i].m_iHomingFlg = true;	//ホーミングする！
-			enemy[i].m_iFlg = true;
-			break;
-		}
+		
 	}
 
 
