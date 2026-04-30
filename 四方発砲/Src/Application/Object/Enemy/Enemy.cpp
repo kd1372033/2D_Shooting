@@ -92,13 +92,13 @@ void Enemy::SetPosByIndex(int enemyIdx, int spawnPointIdx)
 {
 	switch (spawnPointIdx)
 	{
-	case 0: m_pos[enemyIdx] = { 0, 328 };     break;
-	case 1: m_pos[enemyIdx] = { 608, 328 };   break;
-	case 2: m_pos[enemyIdx] = { 608, 0 };     break;
-	case 3: m_pos[enemyIdx] = { 608, -328 };  break;
-	case 4: m_pos[enemyIdx] = { 0, -328 };    break;
-	case 5: m_pos[enemyIdx] = { -608, -328 }; break;
-	case 6: m_pos[enemyIdx] = { -608, 0 };    break;
-	case 7: m_pos[enemyIdx] = { -608, 328 };  break;
+	case 0: m_pos[enemyIdx] = { 0, 328 };     break;	//北
+	case 1: m_pos[enemyIdx] = { 608, 328 };   break;	//北東
+	case 2: m_pos[enemyIdx] = { 608, 0 };     break;	//東
+	case 3: m_pos[enemyIdx] = { 608, -328 };  break;	//南東
+	case 4: m_pos[enemyIdx] = { 0, -328 };    break;	//南
+	case 5: m_pos[enemyIdx] = { -608, -328 }; break;	//南西
+	case 6: m_pos[enemyIdx] = { -608, 0 };    break;	//西
+	case 7: m_pos[enemyIdx] = { -608, 328 };  break;	//北西
 	}
 }
