@@ -31,7 +31,7 @@ private:
 
 	// 敵
 	std::vector<Math::Vector2> m_spawnpos;
-	KdTexture m_tex[enemyNum];
+	KdTexture m_tex;
 
 	Math::Matrix transmat[enemyNum];
 	Math::Matrix scalemat[enemyNum];

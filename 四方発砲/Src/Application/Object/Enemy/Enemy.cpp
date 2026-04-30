@@ -9,23 +9,30 @@ void Enemy::Update()
 		if (m_aliveFlg[i]) activeCount++;
 	}
 
-	// --- 4体未満なら、新しい敵を1体出現させる ---
 	if (activeCount < 4)
 	{
-		// 配列の中から、出現していない敵を探す
-		for (int i = 0; i < enemyNum; i++)
+		m_spawnTimer++; // フレームカウント
+
+		if (m_spawnTimer >= m_spawnSpan)
 		{
-			if (!m_aliveFlg[i])
+			// 出現していない敵を探す
+			for (int i = 0; i < enemyNum; i++)
 			{
-				m_aliveFlg[i] = true;
-				int r = rand() % 8;
-				SetPosByIndex(i, r);
-				break; // 1体出したのでループを抜ける
+				if (!m_aliveFlg[i])
+				{
+					m_aliveFlg[i] = true;
+
+					int r = rand() % 8;
+					SetPosByIndex(i, r);
+
+					m_spawnTimer = 0; // タイマーリセット
+					break;
+				}
 			}
 		}
 	}
 
-	// 自機の座標を取得（ループの外で1回取ればOK）
+	// 自機の座標を取得
 	if (m_player)
 	{
 		m_targetpos = m_player->GetPos();
@@ -38,9 +45,8 @@ void Enemy::Update()
 
 		// 2. 移動処理
 		float len = m_distance[i].Length(); // 自機までの距離
-		if (len > 0.1f) // 重なり防止
+		if (len > 0.1f)
 		{
-			// 正規化（方向ベクトル）を求めて、速度(m_moveSpd)を掛ける
 			Math::Vector2 moveDir = m_distance[i] / len;
 			m_pos[i] += moveDir * (float)m_moveSpd;
 		}
@@ -60,7 +66,7 @@ void Enemy::Draw()
 		if (!m_aliveFlg[i]) continue;
 
 		SHADER.m_spriteShader.SetMatrix(mat[i]);
-		SHADER.m_spriteShader.DrawTex(&m_tex[i], Math::Rectangle(0, 0, 64, 64), 1.0f);
+		SHADER.m_spriteShader.DrawTex(&m_tex, Math::Rectangle(0, 0, 64, 64), 1.0f);
 	}
 }
 
@@ -70,9 +76,11 @@ void Enemy::Init()
 	m_spawnTimer = 0;
 	m_spawnCnt = 0;
 
+	m_tex.Load("Texture/Game/Enemy.png");
+
+
 	for (int i = 0; i < enemyNum; i++)
 	{
-		m_tex[i].Load("Texture/Game/Enemy.png");
 		m_scale[i] = { 1.0f, 1.0f };
 		m_aliveFlg[i] = false;
 		int r = rand() % 8;
@@ -82,10 +90,7 @@ void Enemy::Init()
 
 void Enemy::Release()
 {
-	for (int i = 0; i < enemyNum; i++)
-	{
-		m_tex[i].Release();
-	}
+		m_tex.Release();
 }
 
 void Enemy::SetPosByIndex(int enemyIdx, int spawnPointIdx)
