@@ -1,9 +1,8 @@
 #pragma once
-#include "../BaseScene/BaseScene.h"
+#include "../BaseScene.h"
 
+class BaseObject;
 class Player;
-class Enemy;
-class Bullet;
 
 class GameScene : public BaseScene
 {
@@ -16,17 +15,23 @@ public:
 	void Draw()		override;
 	void Release()	override;
 
+	//全オブジェクトリストを取得
+	std::vector<std::shared_ptr<BaseObject>> GetObjList()
+	{
+		return m_objList;
+	}
+
+	void AddObject(std::shared_ptr<BaseObject> _obj)
+	{
+		// リストの末尾に引数で渡された１要素を追加
+		m_objList.push_back(_obj);
+	}
+
 private:
 	std::shared_ptr<Player> m_player;
-	std::shared_ptr<Enemy> m_enemy;
-	std::shared_ptr<Bullet> m_bullet;
+	std::vector<std::shared_ptr<BaseObject>> m_objList;
+	std::vector<std::shared_ptr<BaseObject>> m_addList;
 
-	static const int N = 90;	//北
-	static const int W = 180;	//西
-	static const int S = 270;	//南
-	static const int E = 360;	//東
-	static const int NE = 29;	//北東
-	static const int NW = 151;	//北西
-	static const int SE = 331;	//南東
-	static const int SW = 210;	//南西
+	int m_spawnTimer = 0;           // 出現用タイマー
+	const int m_spawnSpan = 180;    // 3秒（60fps × 3秒 = 180フレーム）
 };

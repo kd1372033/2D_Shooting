@@ -1,11 +1,11 @@
 #pragma once
-#include "../BaseScene/BaseScene.h"
+#include "../BaseScene.h"
 
 class ResultScene : public BaseScene
 {
 public:
-	ResultScene(){}
-	~ResultScene(){}
+	ResultScene() {}
+	~ResultScene() {}
 
 	void Init()		override;
 	void Update()	override;

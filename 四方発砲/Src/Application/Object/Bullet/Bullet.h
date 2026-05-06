@@ -1,6 +1,8 @@
 #pragma once
 #include "../BaseObject.h"
 
+class GameScene;
+
 class Bullet :public BaseObject
 {
 public:
@@ -10,17 +12,21 @@ public:
 	void Update() override;
 	void Draw() override;
 	void Init() override;
-
 	void Shot(const Math::Vector2& _startPos, float _angle);
+	void OnHit() override;
+
+	void SetPos(Math::Vector2 _pos) { m_pos = _pos; }
+	void SetOwner(GameScene* _owner) { m_owner = _owner; }
 
 private:
 	void Release() override;
+	GameScene* m_owner;
 
-	static const int bulletNum = 20;
-	Math::Vector2 m_pos[bulletNum];
-	Math::Vector2 m_deg[bulletNum];
+	Math::Vector2 m_deg;
 	Math::Vector2 m_scale = { 0.5f,0.5f };
-	Math::Matrix m_mat[bulletNum];
-	bool m_aliveFlg[bulletNum];
-	const int m_moveSpd = 10;
+	Math::Matrix m_mat;
+	int m_moveSpd = 3;
+	int m_radius = 16;
+
+
 };
