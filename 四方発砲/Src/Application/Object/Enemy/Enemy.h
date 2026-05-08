@@ -15,6 +15,7 @@ public:
 	void Init() override;
 
 	void OnHit() override;
+	void Explode(Math::Vector2 _pos);	// 爆発
 	void SetOwner(GameScene* _owner) { m_owner = _owner; }
 	void SetTarget(std::shared_ptr<Player> _player)
 	{
@@ -35,13 +36,18 @@ private:
 	// 敵
 	std::vector<Math::Vector2> m_spawnpos;
 	KdTexture m_tex;
+	KdTexture m_explodeTex;
 	int m_animCnt;
-	int m_timer;
-	int m_index;
+	int m_explodeanimCnt;
+	int m_timer = 0;
+	int m_index = 0;
+	bool m_isExploding = false; // 爆発中かどうか
+	int  m_explodeTimer = 0;    // アニメのコマ送り用タイマー
 
 	Math::Matrix transmat;
 	Math::Matrix scalemat;
 	Math::Matrix mat;
+	Math::Matrix explodeMat;
 
 	Math::Vector2 m_move;
 	Math::Vector2 m_scale;

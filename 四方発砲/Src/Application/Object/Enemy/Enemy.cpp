@@ -7,6 +7,20 @@ void Enemy::Update()
 {
 	if (!m_owner) return;
 
+	if (m_isExploding) {
+		// --- 爆発中の処理 ---
+		if (++m_explodeTimer > 2) { // 5フレームごとに次のコマへ
+			m_explodeTimer = 0;
+			m_animCnt++;
+
+			// 10コマ（最後）まで再生したら消滅
+			if (m_animCnt >= 10) {
+				m_aliveFlg = false;
+			}
+		}
+		return; // 爆発中は移動させないためにここで抜ける
+	}
+
 	std::vector<int> patterns = { 0, 1 };
 
 	static int timer = 0;
@@ -39,8 +53,17 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
-	SHADER.m_spriteShader.SetMatrix(mat);
-	SHADER.m_spriteShader.DrawTex(&m_tex, Math::Rectangle(64 * m_animCnt, 0, 64, 64), 1.0f);
+	if (m_isExploding) {
+		// 爆発中：爆発テクスチャのみ描画
+		SHADER.m_spriteShader.SetMatrix(explodeMat);
+		Math::Rectangle rc = Math::Rectangle(32 * m_animCnt, 0, 32, 32);
+		SHADER.m_spriteShader.DrawTex(&m_explodeTex, 0, 0, &rc);
+	}
+	else {
+		// 生存中：敵本体のみ描画
+		SHADER.m_spriteShader.SetMatrix(mat);
+		SHADER.m_spriteShader.DrawTex(&m_tex, Math::Rectangle(64 * m_animCnt, 0, 64, 64), 1.0f);
+	}
 }
 
 void Enemy::Init()
@@ -49,6 +72,8 @@ void Enemy::Init()
 	m_objType = ObjectType::Enemy;
 
 	m_tex.Load("Texture/Game/Enemy.png");
+	m_explodeTex.Load("Texture/Game/explosion.png");
+	m_explodeanimCnt = 0;
 	m_animCnt = 0;
 	m_index = 0;
 	m_timer = 0;
@@ -71,7 +96,17 @@ void Enemy::Init()
 
 void Enemy::OnHit()
 {
-	m_aliveFlg = false;
+	if (m_isExploding) return;
+	Explode(m_pos);
+}
+
+void Enemy::Explode(Math::Vector2 _pos)
+{
+	m_isExploding = true;
+	m_animCnt = 0;      // 0コマ目から開始
+	m_explodeTimer = 0; // タイマーリセット
+
+	explodeMat = Math::Matrix::CreateScale(2.0f, 2.0f, 1.0f) * Math::Matrix::CreateTranslation(_pos.x, _pos.y, 0);
 }
 
 void Enemy::Release()

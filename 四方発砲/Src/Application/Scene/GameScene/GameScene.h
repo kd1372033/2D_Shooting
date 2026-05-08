@@ -38,11 +38,21 @@ private:
 	std::vector<std::shared_ptr<BaseObject>> m_objList;
 	std::vector<std::shared_ptr<BaseObject>> m_addList;
 
+	enum class State {
+		Countdown,
+		Playing
+	};
+	State m_state = State::Countdown; // 初期状態はカウントダウン
+	float m_countdownTimer = 3.5f;
+
 	int m_spawnTimer = 0;           // 出現用タイマー
-	const int m_spawnSpan = 90;
+	const int m_spawnSpan = 60;
 
 	KdTexture m_backTex;
 	Math::Vector2 m_backPos;
 	Math::Matrix backmat;
+
+	KdTexture m_countTex;
+	Math::Matrix countmat;
 
 };

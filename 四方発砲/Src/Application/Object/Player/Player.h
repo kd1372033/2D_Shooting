@@ -18,6 +18,7 @@ public:
 
 	void SetScore(std::shared_ptr<Score> _score) { m_score = _score; }
 	void SetOwner(GameScene* _owner) { m_owner = _owner; }
+	void SetCanControl(bool _flg) { m_canControl = _flg; }
 
 private:
 
@@ -32,6 +33,14 @@ private:
 	float m_shotTimer;
 	int m_animCnt = 0;	//アニメーションカウンタ
 	int m_radius = 160;
+	bool m_canControl = true;
+
+	int m_dieTimer = 0;      // 死亡演出用タイマー
+	int m_dieIndex = 0;      // 死亡パターンの配列添え字
+	bool m_isCleanupDone = false; // 敵消去済みフラグ
+	int m_animTimer = 0;     // 通常アニメ用タイマー
+	int m_animIndex = 0;     // 通常アニメ用添え字
+	int m_mutekiTimer = 0;
 
 	GameScene* m_owner;
 

@@ -26,8 +26,8 @@ private:
 	KdTexture m_starttex;
 	Math::Vector2 m_startPos;
 	Math::Matrix startmat;
-	float m_alpha;
-	float m_delta;
+	float m_alpha = 0.0f;
+	float m_delta = 0.01f;
 
 	Math::Matrix scoremat;
 	Math::Matrix highscoremat;

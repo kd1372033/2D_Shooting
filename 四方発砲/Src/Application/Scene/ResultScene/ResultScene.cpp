@@ -36,6 +36,7 @@ void ResultScene::Update()
 			// 何もしない
 		}
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
+		m_score->Reset();
 	}
 	backmat = Math::Matrix::CreateTranslation(m_backPos.x, m_backPos.y, 0.0f);
 
