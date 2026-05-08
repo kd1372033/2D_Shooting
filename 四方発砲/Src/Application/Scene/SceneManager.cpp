@@ -3,6 +3,7 @@
 #include "TitleScene/TitleScene.h"
 #include "GameScene/GameScene.h"
 #include "ResultScene/ResultScene.h"
+#include "../Object/Score/Score.h"
 
 void SceneManager::PreUpdate()
 {
@@ -26,6 +27,7 @@ void SceneManager::Draw()
 void SceneManager::Init()
 {
 	ChangeScene(m_currentSceneType);
+	m_score = std::make_shared<Score>();
 }
 
 void SceneManager::Release()
@@ -57,5 +59,4 @@ void SceneManager::ChangeScene(SceneType _sceneType)
 
 	// ②シーン管理フラグ更新
 	m_currentSceneType = _sceneType;
-
 }

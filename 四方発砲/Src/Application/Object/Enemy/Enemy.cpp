@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "../Player/Player.h"
 #include "../../Scene/GameScene/GameScene.h"
+//#include "../Score/Score.h"
 
 void Enemy::Update()
 {

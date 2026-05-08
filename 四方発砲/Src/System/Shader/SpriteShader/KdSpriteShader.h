@@ -77,7 +77,7 @@ public:
 		if (tex == nullptr)return;
 		DrawTex(tex, x, y, srcRect->width, srcRect->height, srcRect, color, pivot);
 	}
-
+	
 	//４・５月の授業用シンプル版
 	void DrawTex(const KdTexture* tex, const Math::Rectangle& srcRect = { 0,0,0,0 }, const float alpha = 1.0f, const Math::Vector2& pivot = { 0.5, 0.5f })
 	{

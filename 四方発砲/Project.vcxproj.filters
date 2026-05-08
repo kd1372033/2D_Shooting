@@ -67,6 +67,9 @@
     <Filter Include="Src\Application\Object\Bullet">
       <UniqueIdentifier>{2f03fa93-fa28-43e1-aa7b-5f18d9af1df3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Score">
+      <UniqueIdentifier>{bd7c2551-9544-4eac-8319-2064af2b2678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -189,8 +192,11 @@
     <ClInclude Include="BaseScene.h">
       <Filter>Src\Application\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Score\Score.h">
+      <Filter>Src\Application\Object\Score</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Application\Object\Enemy\Enemy.h">
-      <Filter>Src\Application\Object\Bullet</Filter>
+      <Filter>Src\Application\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Scene\SceneManager.cpp">
       <Filter>Src\Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Score\Score.cpp">
+      <Filter>Src\Application\Object\Score</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

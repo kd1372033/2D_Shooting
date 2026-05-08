@@ -21,6 +21,7 @@ public:
 		m_player = _player;
 	}
 
+
 private:
 	void Release() override;
 
@@ -53,4 +54,6 @@ private:
 	int m_spawnTimer = 0;
 	int m_spawnCnt = 0;
 	const int m_spawnSpan = 60;
+
+	//int m_score = 100;
 };

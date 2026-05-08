@@ -3,20 +3,23 @@
 #include "../../Object/Player/Player.h"
 #include "../../Object/Enemy/Enemy.h"
 #include "../../Object/Bullet/Bullet.h"
+#include "../../Object/Score/Score.h"
 
 void GameScene::Init()
 {
-
+	m_score = SceneManager::Instance().GetScore();
+	m_backTex.Load("Texture/Game/Back.png");
 	// プレイヤー
 	std::shared_ptr<Player> player;
 	player = std::make_shared<Player>();	//①インスタンスを生成
-	player->Init();							//②初期化
+	player->Init();
+	player->SetScore(m_score);
 	player->SetOwner(this);
 	m_objList.push_back(player);			//③リストへ追加
 
 	// エネミー
 	std::shared_ptr<Enemy> enemy;	//forの外で宣言すればOK
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		enemy = std::make_shared<Enemy>();
 		enemy->Init();
@@ -60,7 +63,14 @@ void GameScene::Update()
 		// オブジェクトの有効チェック
 		if ((*it)->GetAliveFlg() == false)
 		{
-			// 無効なオブジェクトをリストから削除
+			// 削除する前に、今指している要素 (*it) が Enemy かどうかを判定する
+			// ※ ObjectType:: の部分でエラーが出る場合は ObjectType::Enemy を確認
+			if ((*it)->GetObjType() == BaseObject::ObjectType::Enemy)
+			{
+				m_score->Add(100); // 敵を倒した時だけ加算
+			}
+
+			// リストから削除して、次の要素のイテレータを受け取る
 			it = m_objList.erase(it);
 		}
 		else
@@ -73,10 +83,17 @@ void GameScene::Update()
 	{
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
 	}
+
+	backmat = Math::Matrix::CreateTranslation(m_backPos.x, m_backPos.y, 0.0f);
 }
 
 void GameScene::Draw()
 {
+	SHADER.m_spriteShader.SetMatrix(backmat);
+	Math::Rectangle backrc = { 0, 0, 1280, 720 };
+	Math::Color backcolor = { 1.0f,1.0f,1.0f,1.0f };
+	SHADER.m_spriteShader.DrawTex(&m_backTex, 0, 0, &backrc, &backcolor);
+
 	for (int i = 0; i < m_objList.size(); ++i)
 	{
 		m_objList[i]->Draw();

@@ -1,6 +1,8 @@
 #pragma once
 #include "../BaseScene.h"
 
+class Score;
+
 class ResultScene : public BaseScene
 {
 public:
@@ -12,6 +14,25 @@ public:
 	void Draw()		override;
 	void Release()	override;
 
-private:
 
+private:
+	std::shared_ptr<Score> m_score;
+	KdTexture m_backTex;
+	KdTexture m_scoreTex;
+	KdTexture m_highscoreTex;
+	Math::Vector2 m_backPos;
+	Math::Matrix backmat;
+
+	KdTexture m_starttex;
+	Math::Vector2 m_startPos;
+	Math::Matrix startmat;
+	float m_alpha;
+	float m_delta;
+
+	Math::Matrix scoremat;
+	Math::Matrix highscoremat;
+	Math::Vector2 scorePos;
+	Math::Vector2 highscorePos;
+
+	int m_finalScore = 0;
 };

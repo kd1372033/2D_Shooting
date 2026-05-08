@@ -1,7 +1,9 @@
 #pragma once
+#include <memory>
 
 // 前方宣言
 class BaseScene;
+class Score;
 
 class SceneManager
 {
@@ -30,6 +32,8 @@ public:
 		return m_currentSceneType;
 	}
 
+	std::shared_ptr<Score> GetScore() { return m_score; }
+
 private:
 
 	// 保守性を高めるために、他で呼べないようにする
@@ -42,11 +46,12 @@ private:
 	SceneType m_currentSceneType = SceneType::Title;	// 現在のシーンの種類
 	SceneType m_nextSceneType = m_currentSceneType;		// 次のシーンの種類
 
+	std::shared_ptr<Score> m_score;
+
 private:
 
-	SceneManager() { Init(); }
+	SceneManager() {Init();}
 	~SceneManager() { Release(); }
-
 public:
 	static SceneManager& Instance()
 	{

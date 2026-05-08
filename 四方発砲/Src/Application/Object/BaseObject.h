@@ -25,6 +25,8 @@ public:
 	bool GetAliveFlg() { return m_aliveFlg; }
 	int GetRadius() { return m_radius; }
 
+	void SetAlive(bool _alive) { m_aliveFlg = _alive; }
+
 
 protected:
 	virtual void Release();
@@ -36,5 +38,5 @@ protected:
 	Math::Vector2	m_pos;				//座標
 	Math::Vector2	m_scale;				//拡大率
 	bool			m_aliveFlg = true;	//生存フラグ
-	int				m_radius=0;
+	int				m_radius = 0;
 };
