@@ -9,7 +9,7 @@ void Enemy::Update()
 
 	if (m_isExploding) {
 		// --- 爆発中の処理 ---
-		if (++m_explodeTimer > 2) { // 5フレームごとに次のコマへ
+		if (++m_explodeTimer > 1) { 
 			m_explodeTimer = 0;
 			m_animCnt++;
 

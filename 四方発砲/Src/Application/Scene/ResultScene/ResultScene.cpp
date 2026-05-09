@@ -8,10 +8,12 @@ void ResultScene::Init()
 	m_scoreTex.Load("Texture/Result/score.png");
 	m_highscoreTex.Load("Texture/Result/highscore.png");
 	m_starttex.Load("Texture/Result/start.png");
+	m_resultTex.Load("Texture/Result/result.png");
 
-	scorePos = { -150,150 };
+	scorePos = { -150,100 };
 	highscorePos = { -200 ,-50 };
-	m_startPos = { 0,-200 };
+	m_startPos = { 0,-250 };
+	m_resultPos = { 0,260 };
 	m_alpha = 0.0f;
 	m_delta = 0.001f;
 
@@ -20,7 +22,12 @@ void ResultScene::Init()
 	m_score->Save();
 	m_score->Load();
 
-
+	if (m_score->GetValue() >= 10000) {
+		m_resultFlg = false;
+	}
+	else {
+		m_resultFlg = true;
+	}
 }
 
 void ResultScene::Update()
@@ -43,33 +50,45 @@ void ResultScene::Update()
 	scoremat = Math::Matrix::CreateTranslation(scorePos.x, scorePos.y, 0.0);
 	highscoremat = Math::Matrix::CreateTranslation(highscorePos.x, highscorePos.y, 0.0);
 	startmat = Math::Matrix::CreateTranslation(m_startPos.x, m_startPos.y, 0.0f);
+	resultmat = Math::Matrix::CreateTranslation(m_resultPos.x, m_resultPos.y, 0.0f);
 
 }
 
 void ResultScene::Draw()
 {
+	// 背景描画
 	SHADER.m_spriteShader.SetMatrix(backmat);
 	Math::Rectangle backrc = { 0, 0, 1280, 720 };
-	Math::Color backcolor = { 1.0f,1.0f,1.0f,1.0f };
+	Math::Color backcolor = { 1.0f, 1.0f, 1.0f, 1.0f };
 	SHADER.m_spriteShader.DrawTex(&m_backTex, 0, 0, &backrc, &backcolor);
 
+	// スコア描画（m_score内部でDrawNumberが呼ばれる）
 	m_score->Draw();
 
+	long offsetY = m_resultFlg ? 0 : 222;
+
+	Math::Rectangle resultrc = { 0, offsetY, 1280, 222 };
+	Math::Color resultcolor = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	SHADER.m_spriteShader.SetMatrix(resultmat);
+	SHADER.m_spriteShader.DrawTex(&m_resultTex, 0, 0, &resultrc, &resultcolor);
+
+	// --- その他のテクスチャ ---
+	// スコア見出し
 	SHADER.m_spriteShader.SetMatrix(scoremat);
 	Math::Rectangle scorerc = { 0, 0, 151, 46 };
-	Math::Color scorecolor = { 1.0f,1.0f,1.0f,1.0f };
-	SHADER.m_spriteShader.DrawTex(&m_scoreTex, 0, 0, &scorerc, &scorecolor);
+	SHADER.m_spriteShader.DrawTex(&m_scoreTex, 0, 0, &scorerc, &backcolor);
 
+	// ハイスコア見出し
 	SHADER.m_spriteShader.SetMatrix(highscoremat);
 	Math::Rectangle highscorerc = { 0, 0, 260, 46 };
-	Math::Color highscorecolor = { 1.0f,1.0f,1.0f,1.0f };
-	SHADER.m_spriteShader.DrawTex(&m_highscoreTex, 0, 0, &highscorerc, &highscorecolor);
+	SHADER.m_spriteShader.DrawTex(&m_highscoreTex, 0, 0, &highscorerc, &backcolor);
 
-	Math::Rectangle startrc = { 0,0,284,91 };
-	Math::Color startcolor = { 1, 1, 1, m_alpha };
+	// スタート案内 (点滅 alpha)
+	Math::Rectangle startrc = { 0, 0, 284, 91 };
+	Math::Color startcolor = { 1.0f, 1.0f, 1.0f, m_alpha };
 	SHADER.m_spriteShader.SetMatrix(startmat);
 	SHADER.m_spriteShader.DrawTex(&m_starttex, 0, 0, &startrc, &startcolor);
-
 }
 
 void ResultScene::Release()

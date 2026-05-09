@@ -71,7 +71,7 @@ void Score::DrawNumber(float x, float y, int value)
 
 void Score::Draw()
 {
-	DrawNumber(150, 150, m_value);
+	DrawNumber(150, 100, m_value);
 
 	// 2. ハイスコア（保存されている中で1番高いもの）を表示
 	// 読み込み済みの saveScore[0] を使用

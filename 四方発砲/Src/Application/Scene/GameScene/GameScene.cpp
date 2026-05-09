@@ -98,7 +98,7 @@ void GameScene::Update()
 		{
 			if ((*it)->GetObjType() == BaseObject::ObjectType::Enemy)
 			{
-				m_score->Add(100);
+				m_score->Add(250);
 			}
 			it = m_objList.erase(it);
 		}
@@ -132,9 +132,9 @@ void GameScene::Draw()
 		int countIdx = (int)m_countdownTimer;
 
 		int imgH = 72;
-		int imgW = 41;
+		int imgW = 202;
 
-		int srcY = 0;
+		int srcY = 202;
 		if (countIdx == 3) srcY = imgH * 0;
 		else if (countIdx == 2) srcY = imgH * 1;
 		else if (countIdx == 1) srcY = imgH * 2;

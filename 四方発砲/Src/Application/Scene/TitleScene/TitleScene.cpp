@@ -20,7 +20,7 @@ void TitleScene::Init()
 	m_logoPos = { -320,175 };
 	m_playerPos = { -800,0 };
 	//m_enemyPos = { -1000,0 };
-	m_startPos = { 0,-200 };
+	m_startPos = { 0,-250 };
 	m_animCnt = 0;
 	m_playerScale = { 0.5,0.5 };
 	playerdeg = 0.0f;
