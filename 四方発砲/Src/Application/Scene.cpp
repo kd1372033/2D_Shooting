@@ -16,6 +16,7 @@ void Scene::PreUpdate()
 
 void Scene::Update()
 {
+	ShowCursor(false);
 	PreUpdate();
 
 	SceneManager::Instance().Update();
