@@ -34,6 +34,12 @@ void GameScene::Update()
 		m_addList.clear();
 	}
 
+
+	if (GetAsyncKeyState('R') & 0x8000)
+	{
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
+	}
+
 	// --- ② カウントダウン中の処理 ---
 	if (m_state == State::Countdown) {
 		m_countdownTimer -= 1.0f / 60.0f;
@@ -106,11 +112,6 @@ void GameScene::Update()
 		{
 			it++;
 		}
-	}
-
-	if (GetAsyncKeyState('R') & 0x8000)
-	{
-		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
 	}
 
 	backmat = Math::Matrix::CreateTranslation(m_backPos.x, m_backPos.y, 0.0f);

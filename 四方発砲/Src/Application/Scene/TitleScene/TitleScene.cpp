@@ -73,6 +73,11 @@ void TitleScene::Update()
 		e.mat = Math::Matrix::CreateTranslation(e.pos.x, e.pos.y, 0);
 	}
 
+	if (GetAsyncKeyState('R') & 0x8000)
+	{
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
+	}
+
 	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 	{
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Game);
