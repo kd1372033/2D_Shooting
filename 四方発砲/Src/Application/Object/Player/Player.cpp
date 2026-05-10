@@ -112,7 +112,13 @@ void Player::Update()
 		m_hp = 3; // 回復
 	}
 	if (GetAsyncKeyState('X') & 0x8000) {
-		m_hp = 0; // 即死
+		m_hp = 2;
+	}
+	if (GetAsyncKeyState('C') & 0x8000) {
+		m_hp = 1;
+	}
+	if (GetAsyncKeyState('V') & 0x8000) {
+		m_hp = 0;
 	}
 
 }

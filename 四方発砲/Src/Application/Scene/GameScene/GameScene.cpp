@@ -98,7 +98,7 @@ void GameScene::Update()
 		{
 			if ((*it)->GetObjType() == BaseObject::ObjectType::Enemy)
 			{
-				m_score->Add(250);
+				m_score->Add(500);
 			}
 			it = m_objList.erase(it);
 		}
