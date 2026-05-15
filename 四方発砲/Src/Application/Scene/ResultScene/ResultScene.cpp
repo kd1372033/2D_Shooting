@@ -36,6 +36,7 @@ void ResultScene::Update()
 	if (m_alpha <= 0.05) { m_delta = 0.01f; }
 	else if (m_alpha >= 1) { m_delta = -0.01f; }
 
+
 	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 	{
 		// ビジーウエイト

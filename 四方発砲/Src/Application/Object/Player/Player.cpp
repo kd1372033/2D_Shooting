@@ -107,20 +107,10 @@ void Player::Update()
 		}
 	}
 
-	// デバッグキー
-	if (GetAsyncKeyState('Z') & 0x8000) {
-		m_hp = 3; // 回復
+	if (GetAsyncKeyState('Z') & 0x8000)
+	{
+		m_hp = 3;
 	}
-	if (GetAsyncKeyState('X') & 0x8000) {
-		m_hp = 2;
-	}
-	if (GetAsyncKeyState('C') & 0x8000) {
-		m_hp = 1;
-	}
-	if (GetAsyncKeyState('V') & 0x8000) {
-		m_hp = 0;
-	}
-
 }
 
 void Player::Draw()
@@ -135,7 +125,7 @@ void Player::Init()
 {
 	m_tex.Load("Texture/Game/player.png");
 	m_pos = {};		//0,0で初期化
-	m_scale = { 0.5f,0.5f };
+	m_scale = { 0.35f,0.35f };
 	m_aliveFlg = true;
 	m_animCnt = 0;
 	m_shotTimer = 15.0f;

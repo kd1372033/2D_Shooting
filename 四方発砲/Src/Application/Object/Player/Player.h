@@ -32,7 +32,7 @@ private:
 	int m_hp = 3;
 	float m_shotTimer;
 	int m_animCnt = 0;	//アニメーションカウンタ
-	int m_radius = 160;
+	int m_radius = 80;
 	bool m_canControl = true;
 
 	int m_dieTimer = 0;      // 死亡演出用タイマー

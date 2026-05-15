@@ -4,6 +4,7 @@
 #include "../../Object/Enemy/Enemy.h"
 #include "../../Object/Bullet/Bullet.h"
 #include "../../Object/Score/Score.h"
+#include "../../Object/UI/UI.h"
 
 void GameScene::Init()
 {
@@ -20,6 +21,9 @@ void GameScene::Init()
 	player->SetOwner(this);
 	m_objList.push_back(player);			//③リストへ追加
 
+	m_ui = std::make_shared<UI>();
+	m_ui->Init();
+
 	m_state = State::Countdown;
 	m_countdownTimer = 3.5f;
 }
@@ -34,12 +38,6 @@ void GameScene::Update()
 		m_addList.clear();
 	}
 
-
-	if (GetAsyncKeyState('R') & 0x8000)
-	{
-		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
-	}
-
 	// --- ② カウントダウン中の処理 ---
 	if (m_state == State::Countdown) {
 		m_countdownTimer -= 1.0f / 60.0f;
@@ -48,7 +46,7 @@ void GameScene::Update()
 			if (obj && obj->GetObjType() == BaseObject::ObjectType::Player) {
 				auto player = std::static_pointer_cast<Player>(obj);
 				player->SetCanControl(false);
-				obj->Update(); // プレイヤーのみ更新
+				obj->Update();
 			}
 		}
 
@@ -69,6 +67,8 @@ void GameScene::Update()
 				enemy->SetOwner(this);
 				m_addList.push_back(enemy);
 			}
+
+			m_ui->Update();
 		}
 
 		// カウントダウン中も背景や行列の計算は必要
@@ -77,8 +77,6 @@ void GameScene::Update()
 
 		return; // ★カウントダウン中のみ、ここで処理を抜ける
 	}
-
-	// --- ③ ここから下は Playing 状態の時にしか来ない ---
 
 	m_spawnTimer++;
 	if (m_spawnTimer >= m_spawnSpan)
@@ -104,7 +102,7 @@ void GameScene::Update()
 		{
 			if ((*it)->GetObjType() == BaseObject::ObjectType::Enemy)
 			{
-				m_score->Add(500);
+				m_score->Add(100);
 			}
 			it = m_objList.erase(it);
 		}
@@ -127,6 +125,12 @@ void GameScene::Draw()
 	for (int i = 0; i < m_objList.size(); ++i)
 	{
 		m_objList[i]->Draw();
+		m_ui->Draw();
+	}
+
+	if (m_state == State::Playing) {
+		m_ui->Update(); // 常にキー入力を監視して行列を更新
+		m_ui->Draw();   // 描画
 	}
 
 	if (m_state == State::Countdown) {
@@ -145,8 +149,6 @@ void GameScene::Draw()
 		SHADER.m_spriteShader.SetMatrix(countmat);
 		SHADER.m_spriteShader.DrawTex(&m_countTex, 0, 0, &countrc, &countcolor);
 	}
-	// 文字列表示
-	//SHADER.m_spriteShader.DrawString(0, 0, "Game", Math::Vector4(1, 1, 0, 1));
 }
 
 void GameScene::Release()

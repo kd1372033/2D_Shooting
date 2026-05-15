@@ -4,6 +4,7 @@
 class BaseObject;
 class Player;
 class Score;
+class UI;
 
 class GameScene : public BaseScene
 {
@@ -37,6 +38,7 @@ private:
 	std::shared_ptr<Score> m_score;
 	std::vector<std::shared_ptr<BaseObject>> m_objList;
 	std::vector<std::shared_ptr<BaseObject>> m_addList;
+	std::shared_ptr<UI> m_ui;
 
 	enum class State {
 		Countdown,
