@@ -48,7 +48,7 @@ private:
 	float m_countdownTimer = 3.5f;
 
 	int m_spawnTimer = 0;           // 出現用タイマー
-	const int m_spawnSpan = 60;
+	const int m_spawnSpan = 40;
 
 	KdTexture m_backTex;
 	Math::Vector2 m_backPos;

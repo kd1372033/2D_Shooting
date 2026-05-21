@@ -9,7 +9,7 @@ void Enemy::Update()
 
 	if (m_isExploding) {
 		// --- 爆発中の処理 ---
-		if (++m_explodeTimer > 1) { 
+		if (++m_explodeTimer > 1) {
 			m_explodeTimer = 0;
 			m_animCnt++;
 
@@ -83,14 +83,14 @@ void Enemy::Init()
 	int r = rand() % 8;
 	switch (r)
 	{
-	case 0: m_pos = { 0, 328 };     break;	//北
-	case 1: m_pos = { 608, 328 };   break;	//北東
-	case 2: m_pos = { 608, 0 };     break;	//東
-	case 3: m_pos = { 608, -328 };  break;	//南東
-	case 4: m_pos = { 0, -328 };    break;	//南
-	case 5: m_pos = { -608, -328 }; break;	//南西
-	case 6: m_pos = { -608, 0 };    break;	//西
-	case 7: m_pos = { -608, 328 };  break;	//北西
+	case 0: m_pos = { 0, 392 };     break;	//北
+	case 1: m_pos = { 672, 392 };   break;	//北東
+	case 2: m_pos = { 672, 0 };     break;	//東
+	case 3: m_pos = { 672, -392 };  break;	//南東
+	case 4: m_pos = { 0, -392 };    break;	//南
+	case 5: m_pos = { -672, -392 }; break;	//南西
+	case 6: m_pos = { -672, 0 };    break;	//西
+	case 7: m_pos = { -672, 392 };  break;	//北西
 	}
 }
 
